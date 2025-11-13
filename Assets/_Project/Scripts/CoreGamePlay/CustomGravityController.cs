@@ -14,23 +14,12 @@ public class CustomGravityController : MonoBehaviour
     {
         _player.gravityScale = 0f;
         
-        //SetGravityDirection(currentGravityDirection);
+        SetGravityDirection(GravityDirection.Down);
     }
 
     private void FixedUpdate()
     {
-        Debug.DrawRay(_player.position, gravityVector.normalized, Color.red);
-
         _player.AddForce(gravityVector * _player.mass);
-
-
-
-        //_player.velocity += gravityVector * Time.fixedDeltaTime;
-
-        //_player.AddForce(gravityVector, ForceMode2D.Force);
-
-        //_player.velocity += gravityVector * Time.fixedDeltaTime;
-
     }
 
     [Button]

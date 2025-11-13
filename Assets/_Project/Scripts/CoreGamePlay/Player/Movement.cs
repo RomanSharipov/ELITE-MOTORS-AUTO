@@ -4,49 +4,53 @@ public class Movement : MonoBehaviour
 {
     [SerializeField] private float _moveSpeed = 5f;
     [SerializeField] private float _jumpForce = 10f;
-
+    
+    [SerializeField] private Rigidbody2D _rigidbody2D;
+    [SerializeField] private Input _input; 
     
     [SerializeField] private Transform _groundCheck;
     [SerializeField] private float _groundCheckRadius = 0.2f;
     
-    [SerializeField] private Rigidbody2D _rigidbody2D;
-    [SerializeField] private bool isGrounded;
-    
     private void FixedUpdate()
     {
-        CheckGround();
+        Move(_input.Direction);
+
+
+        if (_input.JumpInput)
+        {
+            Jump();
+        }
     }
+
 
     public void Move(float direction)
     {
-        Vector2 velocity = _rigidbody2D.velocity;
-        velocity = transform.right * direction * _moveSpeed;
-        velocity.y = _rigidbody2D.velocity.y;
-        _rigidbody2D.velocity = velocity;
+        Vector2 desiredVelocityX = (Vector2)transform.right * direction * _moveSpeed;
+        
+        Vector2 currentVelocity = _rigidbody2D.velocity;
+        
+        float currentVelocityY = Vector2.Dot(currentVelocity, transform.up);
+        
+        Vector2 newVelocity = desiredVelocityX + (Vector2)transform.up * currentVelocityY;
+
+        _rigidbody2D.velocity = newVelocity;
     }
 
-    public void Jump()
+    private void Jump()
     {
-        if (isGrounded)
+        if (IsGrounded())
         {
-            Vector2 velocity = _rigidbody2D.velocity;
-            velocity.y = 0f;
-            _rigidbody2D.velocity = velocity;
-
+            float currentVelocityX = Vector2.Dot(_rigidbody2D.velocity, transform.right);
+            
+            _rigidbody2D.velocity = (Vector2)transform.right * currentVelocityX;
+            
             _rigidbody2D.AddForce(transform.up * _jumpForce, ForceMode2D.Impulse);
         }
     }
 
-    private void CheckGround()
-    {
-        if (_groundCheck != null)
-        {
-            isGrounded = Physics2D.OverlapCircle(_groundCheck.position, _groundCheckRadius);
-        }
-    }
 
-    public bool IsGrounded()
+    private bool IsGrounded()
     {
-        return isGrounded;
+        return Physics2D.OverlapCircle(_groundCheck.position, _groundCheckRadius);
     }
 }

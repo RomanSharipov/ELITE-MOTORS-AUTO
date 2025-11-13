@@ -1,12 +1,6 @@
 public class TouchInput : Input
 {
-    public override float GetHorizontalInput()
-    {
-        return 0f;
-    }
+    public override bool JumpInput => throw new System.NotImplementedException();
 
-    public override bool GetJumpInput()
-    {
-        return false;
-    }
+    public override float Direction => throw new System.NotImplementedException();
 }

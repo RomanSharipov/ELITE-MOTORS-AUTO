@@ -2,6 +2,7 @@ using UnityEngine;
 
 public abstract class Input : MonoBehaviour
 {
-    public abstract float GetHorizontalInput();
-    public abstract bool GetJumpInput();
+    public abstract bool JumpInput { get; }
+
+    public abstract float Direction { get; }
 }
