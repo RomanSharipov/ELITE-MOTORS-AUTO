@@ -18,10 +18,6 @@ namespace CodeBase.Infrastructure.Installers
             builder.Register<LevelService>(Lifetime.Singleton)
                 .As<ILevelService>();
             
-            builder.Register<InputService>(Lifetime.Singleton)
-                .As<IInputService>()
-                .As<IInitializable>();
-            
             builder.Register<PlayerPrefsSaveService>(Lifetime.Singleton)
                 .As<ISaveService>();
             
