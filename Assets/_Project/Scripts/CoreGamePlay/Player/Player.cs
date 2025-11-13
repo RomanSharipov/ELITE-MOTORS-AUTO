@@ -4,7 +4,27 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     [SerializeField] private Movement movement;
-    
+    [SerializeField] private InputType _inputType;
+    [SerializeField] private KeyboardInput _keyboardInput;
+    [SerializeField] private TouchInput _touchInput;
+
+    private void Start()
+    {
+        switch (_inputType)
+        {
+            case InputType.Touch:
+                movement.Init(_touchInput);
+                break;
+            case InputType.Keyboard:
+                movement.Init(_keyboardInput);
+                break;
+            default:
+                break;
+        }
+
+
+        
+    }
 
     public void RotatePlayer(GravityDirection targetGravity)
     {

@@ -1414,7 +1414,6 @@ MonoBehaviour:
   _moveSpeed: 5
   _jumpForce: 10
   _rigidbody2D: {fileID: 1317091737}
-  _input: {fileID: 1317091743}
   _groundCheck: {fileID: 433941559}
   _groundCheckRadius: 0.2
 --- !u!114 &1317091741
@@ -1442,6 +1441,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   movement: {fileID: 1317091740}
+  _inputType: 1
+  _keyboardInput: {fileID: 1317091741}
+  _touchInput: {fileID: 1317091743}
 --- !u!114 &1317091743
 MonoBehaviour:
   m_ObjectHideFlags: 0

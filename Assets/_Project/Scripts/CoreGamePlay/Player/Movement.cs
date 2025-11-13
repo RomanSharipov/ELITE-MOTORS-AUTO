@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class Movement : MonoBehaviour
@@ -6,15 +7,10 @@ public class Movement : MonoBehaviour
     [SerializeField] private float _jumpForce = 10f;
     
     [SerializeField] private Rigidbody2D _rigidbody2D;
-    [SerializeField] private Input _input; 
+    private Input _input; 
     
     [SerializeField] private Transform _groundCheck;
     [SerializeField] private float _groundCheckRadius = 0.2f;
-
-    private void Start()
-    {
-        _input.Jumped += Jump;
-    }
     
     private void OnDestroy()
     {
@@ -52,10 +48,15 @@ public class Movement : MonoBehaviour
             _rigidbody2D.AddForce(transform.up * _jumpForce, ForceMode2D.Impulse);
         }
     }
-
-
+    
     private bool IsGrounded()
     {
         return Physics2D.OverlapCircle(_groundCheck.position, _groundCheckRadius);
+    }
+
+    public void Init(Input Input)
+    {
+        _input = Input;
+        _input.Jumped += Jump;
     }
 }
