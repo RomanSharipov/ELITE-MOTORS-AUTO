@@ -10,16 +10,21 @@ public class Movement : MonoBehaviour
     
     [SerializeField] private Transform _groundCheck;
     [SerializeField] private float _groundCheckRadius = 0.2f;
+
+    private void Start()
+    {
+        _input.Jumped += Jump;
+    }
     
+    private void OnDestroy()
+    {
+        _input.Jumped -= Jump;
+    }
+
+
     private void FixedUpdate()
     {
         Move(_input.Direction);
-
-
-        if (_input.JumpInput)
-        {
-            Jump();
-        }
     }
 
 

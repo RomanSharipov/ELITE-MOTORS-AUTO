@@ -1,9 +1,18 @@
+using System;
 using UnityEngine;
-using UnityEngine.Windows;
 
 public class KeyboardInput : Input
 {
-    public override bool  JumpInput => UnityEngine.Input.GetKeyDown(KeyCode.Space);
-
     public override float Direction => UnityEngine.Input.GetAxis("Horizontal");
+
+    public override event Action Jumped;
+
+
+    private void Update()
+    {
+        if (UnityEngine.Input.GetKeyDown(KeyCode.Space))
+        {
+            Jumped?.Invoke();
+        }
+    }
 }
